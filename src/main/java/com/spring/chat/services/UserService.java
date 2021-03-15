@@ -1,7 +1,7 @@
 package com.spring.chat.services;
 
 
-import com.spring.chat.models.User;
+import com.spring.chat.model.User;
 import com.spring.chat.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

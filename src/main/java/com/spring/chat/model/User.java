@@ -1,16 +1,23 @@
-package com.spring.chat.models;
+package com.spring.chat.model;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 
 import javax.persistence.*;
-import java.util.List;
+
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, unique = true, length = 45)
     private String email;
@@ -24,20 +31,37 @@ public class User {
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
 
-    @OneToMany(mappedBy = "sender")
-    private List<Message> messages;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn( name = "sender_id", referencedColumnName = "id")
+    private Set<Message> messages = new HashSet<>();
 
+
+
+    public Set<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Set<Message> messages) {
+        this.messages = messages;
+    }
 
     public User() {
     }
 
+    public User(String email, String password, String firstName, String lastName) {
+        super();
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     // getters and setters
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

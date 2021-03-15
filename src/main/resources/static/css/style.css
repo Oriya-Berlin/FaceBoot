@@ -520,7 +520,17 @@ table tr th { color: #688a7e;}
 
 }
 
+#sidebar_b {
 
+    width: 180px;
+
+    height: 100%;
+
+    position: absolute;right:0;top:0;
+
+    background: #394a59;
+
+}
 
 .nav-collapse.collapse {
 

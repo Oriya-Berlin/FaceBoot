@@ -1,11 +1,13 @@
-package com.spring.chat.models;
+package com.spring.chat.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+
 import javax.persistence.*;
 import java.util.Date;
+
 
 @Entity
 @Table(name = "messages")
@@ -14,53 +16,44 @@ public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-//    @Column(nullable = false, unique = true, length = 45)
-    @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private User sender;
 
-    @Column(name = "receiver",nullable = false, length = 64)
-    private Long receiver;
+    @Column(name = "receiver_id",nullable = false, length = 64)
+    private Integer receiver;
 
-    @Column(name = "date", nullable = false, length = 20)
+    @Column(name = "date", nullable = false, length = 30)
     private Date date;
 
-    @Column(name = "content", nullable = false, length = 20)
+    @Column(name = "content", nullable = false, length = 64)
     private String content;
 
-    public Message(){}
 
-    public Message(User sender, Long receiver, Date date, String content) {
-        this.sender = sender;
+    public Message(){
+    }
+
+    public Message( Integer receiver, Date date, String content) {
+        super();
         this.receiver = receiver;
         this.date = date;
         this.content = content;
     }
 
+
     // getters and setters
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public User getSender() {
-        return sender;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
-    public Long getReceiver() {
+    public Integer getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(Long receiver) {
+    public void setReceiver(Integer receiver) {
         this.receiver = receiver;
     }
 
@@ -85,7 +78,6 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", sender=" + sender +
                 ", receiver=" + receiver +
                 ", date=" + date +
                 ", content='" + content + '\'' +
